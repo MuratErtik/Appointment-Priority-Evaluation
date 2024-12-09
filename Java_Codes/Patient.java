@@ -8,7 +8,8 @@ public class Patient {
 
     private int appointmentDuration; // every single patient has a time 
 
-    
+    public Patient(){}
+
     public Patient(int pID,int prLevel,int aD){
 
         this.patientID=pID;
@@ -26,8 +27,20 @@ public class Patient {
         return priorityLevel;
     }
 
-    public int getTreatmentTime() {
+    public int getAppointmentTime() {
         return appointmentDuration;
+    }
+
+    public void setId(int id) {
+        this.patientID = id;
+    }
+
+    public void setPriority(int priority) {
+        this.priorityLevel = priority;
+    }
+
+    public void setTreatmentTime(int time) {
+        this.appointmentDuration = time;
     }
 
 
