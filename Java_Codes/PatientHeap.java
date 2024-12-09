@@ -1,6 +1,6 @@
 package Java_Codes;
- import java.util.LinkedList;
- import java.util.Queue;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class PatientHeap {
     static class Node {
@@ -76,7 +76,7 @@ public class PatientHeap {
 
         while (!queue.isEmpty()) {
             Node current = queue.poll();
-            System.out.print(current.patient.toString() + " "); // Now it's safe to print the patient
+            System.out.print(current.patient.toString() + " ");
 
             if (current.left != null)
                 queue.add(current.left);
@@ -85,5 +85,88 @@ public class PatientHeap {
         }
 
         System.out.println();
+    }
+
+    // Method to remove the root node
+    public void removeRoot() {
+        if (root == null) {
+            System.out.println("Heap is empty. Cannot remove root.");
+            return;
+        }
+
+        // Replace root with the last node
+        Node lastNode = getLastNode();
+        if (lastNode == root) {
+            root = null; // If there's only one node, just make root null
+        } else {
+            root.patient = lastNode.patient;
+            removeLastNode();
+            heapifyDown(root);
+        }
+    }
+
+    // Get the last node (rightmost node)
+    private Node getLastNode() {
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        Node lastNode = null;
+
+        while (!queue.isEmpty()) {
+            lastNode = queue.poll();
+
+            if (lastNode.left != null) queue.add(lastNode.left);
+            if (lastNode.right != null) queue.add(lastNode.right);
+        }
+
+        return lastNode;
+    }
+
+    // Remove the last node (rightmost node)
+    private void removeLastNode() {
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            Node current = queue.poll();
+
+            if (current.left != null) {
+                if (current.left.left == null && current.left.right == null) {
+                    current.left = null;
+                    return;
+                }
+                queue.add(current.left);
+            }
+            if (current.right != null) {
+                if (current.right.left == null && current.right.right == null) {
+                    current.right = null;
+                    return;
+                }
+                queue.add(current.right);
+            }
+        }
+    }
+
+    // Heapify down to restore heap property
+    private void heapifyDown(Node node) {
+        while (node.left != null || node.right != null) {
+            Node smallest = node;
+
+            if (node.left != null && node.left.patient.getPriority() < smallest.patient.getPriority()) {
+                smallest = node.left;
+            }
+
+            if (node.right != null && node.right.patient.getPriority() < smallest.patient.getPriority()) {
+                smallest = node.right;
+            }
+
+            if (smallest != node) {
+                int temp = node.patient.getPriority();
+                node.patient.setPriority(smallest.patient.getPriority());
+                smallest.patient.setPriority(temp);
+                node = smallest;
+            } else {
+                break;
+            }
+        }
     }
 }
