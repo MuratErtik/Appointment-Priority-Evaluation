@@ -1,63 +1,98 @@
 package Java_Codes;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
 
 public class MinHeapImp {
-    private ArrayList<Integer> heap;
-    //should be root representation!
+
+    // Node class to represent each element in the tree
+
+    static class Node {
+        int value;
+        Node left, right, parent;
+
+        public Node(int value) {
+            this.value = value;
+            this.left = null;
+            this.right = null;
+            this.parent = null;
+        }
+
+    }
+
+    private Node root;
+    private int size; // Number of elements in the heap
 
     public MinHeapImp() {
-        heap = new ArrayList<>();
+        root = null;
+        size = 0;
     }
 
-    // Get the index of parent, left child, and right child
-    /*
-     * 1
-     * 2 3
-     * 4 5 6 7
-     * for left child i*2 , for right child i*2+1 , for parent int(i/2)
-     */
+    public void insert(int value) {
+        Node newNode = new Node(value);
+        size++;
 
-    public int getLeftChildIndex(int i) {
-        return i * 2;
+        if (root == null) {
+            root = newNode;
+            return;
+        }
+
+        // Find the parent node
+        Node parent = findParent(size);
+        newNode.parent = parent;
+
+        if (parent.left == null) {
+            parent.left = newNode;
+        } else {
+            parent.right = newNode;
+        }
+
+        // Restore the heap property
+        heapifyUp(newNode);
     }
 
-    protected int getRightChildIndex(int i) {
-        return (i * 2) + 1;
+    private Node findParent(int index) {
+        int parentIndex = index / 2;
+        String path = Integer.toBinaryString(parentIndex).substring(1);
+        Node current = root;
+
+        for (char direction : path.toCharArray()) {
+            current = (direction == '0') ? current.left : current.right;
+        }
+
+        return current;
     }
 
-    protected int getParentIndex(int i) {
-        return i / 2;
+    private void heapifyUp(Node node) {
+        while (node.parent != null && node.value < node.parent.value) {
+            int temp = node.value;
+            node.value = node.parent.value;
+            node.parent.value = temp;
+
+            node = node.parent;
+        }
     }
 
-    // check has a node children with array size
+    public void printLevelOrder() {
+        if (root == null) {
+            System.out.println("Heap is empty");
+            return;
+        }
 
-    public boolean hasLeftChild(int i) {
-        return getLeftChildIndex(i) < heap.size();
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            Node current = queue.poll();
+            System.out.print(current.value + " ");
+
+            if (current.left != null)
+                queue.add(current.left);
+            if (current.right != null)
+                queue.add(current.right);
+        }
+
+        System.out.println();
     }
-
-    public boolean hasRightChild(int i) {
-        return getRightChildIndex(i) < heap.size();
-    }
-
-    //get values
-
-    public int getParent(int i) {
-        return heap.get(getParentIndex(i));
-    }
-
-    public int getLeftChild(int i) {
-        return heap.get(getLeftChildIndex(i));
-    }
-
-    public int getRightChild(int i) {
-        return heap.get(getRightChildIndex(i));
-    }
-
-    //insert element and figure-out it!
-
-    //delete element(from root)
-
-
-
 }
