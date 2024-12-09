@@ -39,8 +39,13 @@ public class Patient {
         this.priorityLevel = priority;
     }
 
-    public void setTreatmentTime(int time) {
+    public void setAppointmentTime(int time) {
         this.appointmentDuration = time;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient[ID=" + getId() + ", Priority=" + getPriority() + ", Treatment Time=" + getAppointmentTime() + " mins]";
     }
 
 

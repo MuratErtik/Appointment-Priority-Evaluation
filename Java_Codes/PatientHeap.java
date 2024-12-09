@@ -1,33 +1,30 @@
 package Java_Codes;
-
-import java.util.LinkedList;
-import java.util.Queue;
+ import java.util.LinkedList;
+ import java.util.Queue;
 
 public class PatientHeap {
     static class Node {
-        Patient patient = new Patient();
-       
+        Patient patient;
         Node left, right, parent;
 
-        public Node(int value) {
-            
+        public Node(Patient patient) {
+            this.patient = patient;
             this.left = null;
             this.right = null;
             this.parent = null;
         }
-
     }
 
     private Node root;
-    private int size; // Number of elements in the heap
+    private int size;
 
     public PatientHeap() {
         root = null;
         size = 0;
     }
 
-    public void insert(int value) {
-        Node newNode = new Node(value);
+    public void insert(Patient patient) {
+        Node newNode = new Node(patient);
         size++;
 
         if (root == null) {
@@ -35,7 +32,6 @@ public class PatientHeap {
             return;
         }
 
-        // Find the parent node
         Node parent = findParent(size);
         newNode.parent = parent;
 
@@ -45,7 +41,6 @@ public class PatientHeap {
             parent.right = newNode;
         }
 
-        // Restore the heap property
         heapifyUp(newNode);
     }
 
@@ -60,14 +55,12 @@ public class PatientHeap {
 
         return current;
     }
+
     private void heapifyUp(Node node) {
         while (node.parent != null && node.patient.getPriority() < node.parent.patient.getPriority()) {
-            // Swap priorities
             int temp = node.patient.getPriority();
             node.patient.setPriority(node.parent.patient.getPriority());
             node.parent.patient.setPriority(temp);
-    
-            // Move up to the parent
             node = node.parent;
         }
     }
@@ -83,7 +76,7 @@ public class PatientHeap {
 
         while (!queue.isEmpty()) {
             Node current = queue.poll();
-            System.out.print(current.patient + " ");
+            System.out.print(current.patient.toString() + " "); // Now it's safe to print the patient
 
             if (current.left != null)
                 queue.add(current.left);
@@ -93,6 +86,4 @@ public class PatientHeap {
 
         System.out.println();
     }
-    
-
 }
