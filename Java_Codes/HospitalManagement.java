@@ -12,7 +12,8 @@ public class HospitalManagement {
             System.out.println("1. Add Patient");
             System.out.println("2. Remove Patient (Highest Priority)");
             System.out.println("3. Display Patients (Sorted by Priority)");
-            System.out.println("4. Exit");
+            System.out.println("4. View Removed Patients");
+            System.out.println("5. Exit");
             System.out.print("Select an option: ");
 
             int choice = scanner.nextInt();
@@ -22,13 +23,20 @@ public class HospitalManagement {
                     addPatient(scanner, heap);
                     break;
                 case 2:
-                    removePatient(heap);  // Remove highest priority patient (root)
+                    removePatient(heap); // Remove highest priority patient (root)
                     break;
                 case 3:
                     System.out.println("\nPatients in Priority Order:");
                     heap.printLevelOrder(); // Print patients level by level
                     break;
                 case 4:
+                    System.out.println("\n--- Removed Patients ---");
+                    for (Patient patient : heap.getRemovedPatients()) {
+                        System.out.println(patient);
+                    }
+                    break;
+
+                case 5:
                     System.out.println("Exiting the system...");
                     scanner.close();
                     System.exit(0);
