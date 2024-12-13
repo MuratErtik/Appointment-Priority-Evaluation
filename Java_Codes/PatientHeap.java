@@ -185,6 +185,7 @@ public class PatientHeap {
                 queue.add(current.left);
             if (current.right != null)
                 queue.add(current.right);
+                System.out.println("\n");
         }
 
         System.out.println();
