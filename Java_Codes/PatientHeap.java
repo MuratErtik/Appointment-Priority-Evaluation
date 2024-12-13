@@ -19,14 +19,11 @@ public class PatientHeap {
 
     private Node root;
     private int size;
-    private int totalAppointmentTime; 
-    private final int MAX_APPOINTMENT_TIME = 420; 
     private ArrayList<Patient> removedPatients;
 
     public PatientHeap() {
         root = null;
         size = 0;
-        totalAppointmentTime = 0;
         removedPatients = new ArrayList<>();
     }
 
@@ -129,18 +126,10 @@ public class PatientHeap {
     }
 
     public void removeRoot() {
-        if (totalAppointmentTime >= MAX_APPOINTMENT_TIME) {
-            System.out.println("Total appointment time limit reached (420 minutes). Cannot remove more patients.");
-            return;
-        }
-
         if (root == null) {
             System.out.println("Heap is empty. Cannot remove root.");
             return;
         }
-
-        // Add the appointment time to the total
-        totalAppointmentTime += root.patient.getAppointmentTime();
 
         // Add the removed patient to the list
         removedPatients.add(root.patient);
