@@ -25,6 +25,27 @@ public class PatientHeap {
         root = null;
         size = 0;
         removedPatients = new ArrayList<>();
+        initializeDefaultPatients(); 
+    }
+
+    private void initializeDefaultPatients() {
+        // Default Patients from pdf
+        ArrayList<Patient> defaultPatients = new ArrayList<>();
+        defaultPatients.add(new Patient(101, 5, 30));
+        defaultPatients.add(new Patient(102, 3, 40));
+        defaultPatients.add(new Patient(103, 8, 20));
+        defaultPatients.add(new Patient(104, 1, 60));
+        defaultPatients.add(new Patient(105, 7, 15));
+        defaultPatients.add(new Patient(106, 2, 50));
+        defaultPatients.add(new Patient(107, 4, 45));
+        defaultPatients.add(new Patient(108, 6, 25));
+        defaultPatients.add(new Patient(109, 3, 35));
+        defaultPatients.add(new Patient(110, 2, 30));
+        defaultPatients.add(new Patient(111, 8, 10));
+
+        for (Patient patient : defaultPatients) {
+            insert(patient);
+        }
     }
 
     public void insert(Patient patient) {
@@ -131,13 +152,11 @@ public class PatientHeap {
             return;
         }
 
-        // Add the removed patient to the list
         removedPatients.add(root.patient);
 
-        // Replace root with the last node
         Node lastNode = getLastNode();
         if (lastNode == root) {
-            root = null; // If there's only one node, just make root null
+            root = null;
         } else {
             root.patient = lastNode.patient;
             removeLastNode();
