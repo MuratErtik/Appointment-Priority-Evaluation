@@ -42,8 +42,6 @@ The **PatientController** handles all RESTful endpoints for the system. Key endp
 - **`GET /api/patients/sorted`**:
   - Returns patients sorted by priority after processing.
 
-- **`GET /api/patients`**:
-  - Prints all patients in the heap using level-order traversal.
 
 - **`POST /api/patients`**:
   - Adds a single patient to the heap.
