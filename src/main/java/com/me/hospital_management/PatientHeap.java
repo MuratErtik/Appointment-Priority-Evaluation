@@ -17,7 +17,6 @@ public class PatientHeap {
 
     private Node root;
     private int size;
-    private ArrayList<Patient> removedPatients;
     private static final int MAX_TREATMENT_TIME = 420; 
     private ArrayList<Patient> processedPatients = new ArrayList<>(); 
     private int totalTreatmentTime = 0; 
@@ -26,7 +25,7 @@ public class PatientHeap {
     public PatientHeap() {
         root = null;
         size = 0;
-        removedPatients = new ArrayList<>();
+        
         initializeDefaultPatients();
     }
 
@@ -155,13 +154,11 @@ public class PatientHeap {
         }
     
         if (size == 1) {
-            removedPatients.add(root.patient);
             root = null;
             size--;
             return;
         }
     
-        removedPatients.add(root.patient);
     
         Node lastNode = getLastNode();
         root.patient = lastNode.patient;
@@ -172,9 +169,7 @@ public class PatientHeap {
     }
     
 
-    public ArrayList<Patient> getRemovedPatients() {
-        return removedPatients;
-    }
+   
 
     public void printLevelOrder() {
         if (root == null) {
