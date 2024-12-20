@@ -30,10 +30,7 @@ public class PatientController {
 
     
 
-    @GetMapping
-    public void printPatients() {
-        patientHeap.printLevelOrder();
-    }
+   
 
     @PostMapping
     public ResponseEntity<String> addPatient(@RequestBody Patient patient) {
