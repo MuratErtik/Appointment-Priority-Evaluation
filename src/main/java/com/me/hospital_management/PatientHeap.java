@@ -167,67 +167,12 @@ public class PatientHeap {
     
         heapifyDown(root);
     }
+
     
 
-   
+    
 
-    public void printLevelOrder() {
-        if (root == null) {
-            System.out.println("Heap is empty");
-            return;
-        }
-
-        Queue<Node> queue = new LinkedList<>();
-        queue.add(root);
-
-        while (!queue.isEmpty()) {
-            Node current = queue.poll();
-            System.out.print(current.patient.toString() + " ");
-
-            if (current.left != null)
-                queue.add(current.left);
-            if (current.right != null)
-                queue.add(current.right);
-            System.out.println("\n");
-        }
-
-        System.out.println();
-    }
-
-    public ArrayList<Patient> getSortedPatients() {
-        ArrayList<Patient> patients = getAllPatients();
-
-       
-
-        return patients;
-    }
-
-    public ArrayList<Patient> getAllPatients() {
-        ArrayList<Patient> patients = new ArrayList<>();
-        levelOrderTraversal(root, patients); 
-        return patients;
-    }
-
-    private void levelOrderTraversal(Node node, ArrayList<Patient> patients) {
-        if (node == null)
-            return;
-
-        
-        Queue<Node> queue = new LinkedList<>();
-        queue.add(node);
-
-        while (!queue.isEmpty()) {
-            Node current = queue.poll();
-            patients.add(current.patient); 
-
-            if (current.left != null) {
-                queue.add(current.left);
-            }
-            if (current.right != null) {
-                queue.add(current.right);
-            }
-        }
-    }
+    
     public List<Patient> processPatientsWithLimit() {
         while (root != null && totalTreatmentTime + root.patient.getAppointmentTime() <= MAX_TREATMENT_TIME) {
             totalTreatmentTime += root.patient.getAppointmentTime();
